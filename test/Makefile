@@ -30,7 +30,7 @@ analyze: $(CSV_FILES)
 
 
 ll/%.ll: c/%.c
-	$(CLANG) -g -emit-llvm -O0 -S $< -o - | $(OPT) -mem2reg -S -o $@
+	$(CLANG) -g -emit-llvm -O0 -S -Xclang -disable-O0-optnone $< -o - | $(OPT) -mem2reg -S -o $@
 
 csv/%.csv: ll/%.ll
 	$(OVERFLOWER) $< > $@
